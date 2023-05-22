@@ -17,19 +17,18 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../favlinks/build", "index.html"))
-
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"))
 })
 
-app.get('/links', db.getLinks)
+app.get('/songs', db.getSongs)
 
-app.get('/links/:id', db.getLink)
+app.get('/songs/:id', db.getSong)
 
-app.post('/new', db.createLink)
+app.post('/new', db.createSong)
 
-app.put('links/:id', db.updateLink)
+app.put('songs/:id', db.updateSong)
 
-app.delete('/links/:id', db.deleteLink)
+app.delete('/songs/:id', db.deleteSong)
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
