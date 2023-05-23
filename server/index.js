@@ -4,11 +4,15 @@ const bodyParser = require('body-parser');
 
 const path = require('path');
 
+const cors = require('cors');
+
 const PORT = 8001;
 
 const app = express();
 
 const db = require('./queries');
+
+app.use(cors());
 
 app.use(express.static(path.resolve(__dirname, '../client/build')))
 
@@ -26,7 +30,7 @@ app.get('/songs/:id', db.getSong)
 
 app.post('/new', db.createSong)
 
-app.put('songs/:id', db.updateSong)
+app.put('/songs/:id', db.updateSong)
 
 app.delete('/songs/:id', db.deleteSong)
 

@@ -61,17 +61,32 @@ const createSong = (req, res) => {
     )
  }
 
- const deleteSong = (req, res) => {
-    const id = parseInt(req.params.id)
-    
-    pool.query('DELETE FROM songs WHERE id = $1',
-    [id], (error, results) => {
-        if(error){
-            throw error
-        }
-        res.status(200).send(`Song deleted with ID: ${id}`)
+    const deleteSong = (req, res) => {
+        const id = parseInt(req.params.id)
+        
+        pool.query('DELETE FROM songs WHERE id = $1',
+        [id], (error, results) => {
+            if(error){
+                throw error
+            }
+            res.status(200).send(`Song deleted with ID: ${id}`)
     })
 }
+  
+/*
+ const deleteSong = async (req, res) => {
+    const id = parseInt(req.params.id)
+    
+    try {
+        const query = 'DELETE FROM songs WHERE id = $1'
+        const result = await pool.query(query, [id])
+
+        res.status(200).send(`Song deleted with ID: ${id}`)
+    } catch (error) {
+        console.log('Error deleting song: ', error)
+        res.status(500).send('An error occurred while deleting the song.')
+    }
+}*/
 
 module.exports = {
     getSongs, getSong, createSong, updateSong, deleteSong
